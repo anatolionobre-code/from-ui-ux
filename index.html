@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vilamoura World · Hub Filter Concepts | Codedesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#F1381E;--red-hover:#BF1C05;--red-link:#F38074;--red-tint:#F3807C;
+  --ink:#000;--ink-raised:#121212;--ink-line:#323232;
+  --t1:#fff;--t2:#B8B8B8;--t3:#777;
+  --glass:rgba(255,255,255,.08);--glass-line:rgba(255,255,255,.4);
+  --r:10px;--ease:cubic-bezier(.4,0,.2,1);
+  /* Vilamoura prototype palette */
+  --vw-ink:#1E1E1E;--vw-sub:#3D3B37;--vw-mute:#5C5A55;--vw-line:#ECEAE4;--vw-line2:#CFCBC2;--vw-sand:#F6F3EC;--vw-green:#1F4E4A;--vw-green-soft:#E3ECE9;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--t1);font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--red-link)}a:hover{color:var(--red-tint)}
+.wrap{max-width:1196px;margin:0 auto;padding:0 24px}
+header.site{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+header.site img{height:36px;width:auto;display:block}
+header.site .logo-fallback{font-weight:700;font-size:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;background:var(--red);color:#fff;font-weight:600;font-size:16px;text-decoration:none;border:1px solid rgba(255,255,255,.8);transition:background 150ms var(--ease)}
+.btn:hover{background:var(--red-hover);color:#fff}
+.btn.outline{background:transparent;border-color:var(--glass-line)}
+.btn.outline:hover{background:var(--glass);color:#fff}
+
+.hero{padding:56px 0 72px}
+.eyebrow{font-size:16px;font-weight:500;letter-spacing:.02em;color:var(--red-link);margin:0 0 16px}
+.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.12;font-weight:700;margin:0 0 24px;max-width:860px}
+.hero .lead{font-size:clamp(17px,2vw,20px);font-weight:300;color:var(--t2);max-width:720px;margin:0 0 32px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+
+.glass{background:var(--glass);border:1px solid var(--glass-line);border-radius:var(--r);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px)}
+.problem{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:56px}
+.problem .glass{padding:24px}
+.problem h3{margin:0 0 8px;font-size:18px;font-weight:600}
+.problem p{margin:0;color:var(--t2);font-weight:300;font-size:15px}
+
+section.concept{padding:96px 0;border-top:1px solid var(--ink-line)}
+.concept-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:64px;align-items:start}
+.concept-grid.flip{grid-template-columns:390px minmax(0,1fr)}
+.concept-grid.flip .copy{order:2}
+.tag{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t2);margin-bottom:12px}
+.tag.rec{color:#fff;background:var(--red);padding:4px 10px}
+.copy h2{font-size:clamp(28px,3.4vw,36px);line-height:1.2;font-weight:700;margin:0 0 16px}
+.copy .lead{font-size:18px;font-weight:300;color:var(--t2);margin:0 0 24px}
+.copy ul{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:12px}
+.copy li{padding-left:20px;position:relative;color:#E6E6E6;font-weight:300}
+.copy li::before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;background:var(--red)}
+.copy .try{font-size:14px;color:var(--t3)}
+
+.phone{width:390px;height:780px;border-radius:14px;border:1px solid var(--glass-line);overflow:hidden;background:#fff;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.phone-label{font-size:12px;color:var(--t3);text-align:center;margin-top:12px}
+
+.plan{padding:96px 0;border-top:1px solid var(--ink-line)}
+.plan h2{font-size:clamp(28px,3.4vw,36px);font-weight:700;margin:0 0 12px;text-align:center}
+.plan .sub{text-align:center;color:var(--t2);font-weight:300;margin:0 auto 48px;max-width:640px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.steps .glass{padding:32px}
+.steps .n{font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:14px;color:var(--red-link);font-weight:600;margin-bottom:8px}
+.steps h3{margin:0 0 8px;font-size:20px;font-weight:600}
+.steps p{margin:0;color:var(--t2);font-weight:300;font-size:15px}
+.close{padding:96px 0;text-align:center;border-top:1px solid var(--ink-line)}
+.close h2{font-size:clamp(28px,3.4vw,40px);font-weight:700;margin:0 0 16px}
+.close p{color:var(--t2);font-weight:300;margin:0 0 32px}
+footer{border-top:1px solid var(--ink-line);padding:24px 0;font-size:12px;font-weight:300;color:var(--t3)}
+.note{font-size:12px;color:var(--t3);margin-top:16px}
+
+@media (max-width:900px){
+  .concept-grid,.concept-grid.flip{grid-template-columns:1fr;gap:32px}
+  .concept-grid.flip .copy{order:0}
+  .problem,.steps{grid-template-columns:1fr}
+  .phone-col{display:flex;flex-direction:column;align-items:center}
+  section.concept,.plan,.close{padding:64px 0}
+}
+@media (max-width:440px){
+  .wrap{padding:0 16px}
+  .phone{width:100%;height:760px;border-radius:10px}
+}
+
+/* ===== Prototype (Vilamoura look) ===== */
+.vw{width:100%;height:100%;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:var(--vw-ink);font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.4;position:relative}
+.vw button{font-family:inherit;cursor:pointer;color:inherit}
+.vw .serif{font-family:Marcellus,serif;font-weight:400}
+.vw .h1{font-family:Marcellus,serif;font-size:24px;letter-spacing:1px;text-transform:uppercase;margin:0}
+.vw .kick{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--vw-mute)}
+.vw .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.vw .pill{min-height:44px;padding:0 16px;border:1px solid var(--vw-line2);background:#fff;font-size:14px;border-radius:22px;flex-shrink:0}
+.vw .pill.sm{min-height:38px;padding:0 12px;border-radius:19px;font-size:13px}
+.vw .pill.on{background:var(--vw-green);border-color:var(--vw-green);color:#fff}
+.vw .row{display:flex;gap:8px;flex-wrap:wrap}
+.vw .hrow{display:flex;gap:8px;overflow-x:auto}
+.vw .link{border:none;background:transparent;color:var(--vw-green);text-decoration:underline;font-size:13px;min-height:36px;padding:0}
+.vw .count strong{color:var(--vw-green)}
+.vw a.card{display:flex;text-decoration:none;color:var(--vw-ink);border:1px solid var(--vw-line);background:#fff}
+.vw .tile{display:flex;align-items:flex-end;padding:10px;color:#fff;font-family:Marcellus,serif;letter-spacing:1px;text-transform:uppercase}
+.vw .badge{font-size:10px;font-weight:600;background:var(--vw-green);color:#fff;padding:2px 6px}
+.vw .empty{color:var(--vw-mute);font-size:13px;margin:0}
+/* A */
+.vwA .token{font-family:inherit;font-size:23px;color:var(--vw-green);background:transparent;border:none;border-bottom:2px solid var(--vw-green);padding:0 2px;min-height:44px}
+.vwA .token.open{background:var(--vw-green-soft)}
+/* B */
+.vwB .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 16px}
+.vwB .it{min-height:108px;border:1px solid var(--vw-line2);background:var(--vw-sand);display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:12px;text-align:left}
+.vwB .it.on{background:var(--vw-green);border:2px solid var(--vw-green);color:#fff}
+.vwB .bar{margin-top:14px;padding:10px 16px;border-top:1px solid var(--vw-line);border-bottom:1px solid var(--vw-line);box-shadow:0 6px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:6px;position:relative;z-index:1;background:#fff}
+.vwB .spec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--vw-line)}
+.vwB .spec div{padding:10px 12px;border-right:1px solid var(--vw-line)}
+.vwB .spec div:last-child{border-right:none}
+.vwB .spec small{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--vw-mute)}
+/* C */
+.vwC .rowcards{display:flex;gap:10px;overflow-x:auto;padding:0 20px;scroll-snap-type:x mandatory}
+.vwC .rowcards a.card{flex:0 0 160px;flex-direction:column;scroll-snap-align:start}
+.vwC .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 16px}
+.vwC .grid2 a.card{flex-direction:column}
+/* D */
+.vwD .fab{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);min-height:54px;padding:0 24px;border:none;border-radius:27px;background:var(--vw-green);color:#fff !important;font-size:15px;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.vwD .scrim{position:absolute;inset:0;border:none;background:rgba(20,20,19,.45)}
+.vwD .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;padding:10px 20px 22px;display:flex;flex-direction:column;gap:16px;animation:up 250ms var(--ease)}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+.vwD .seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--vw-green)}
+.vwD .seg button{min-height:48px;border:none;border-right:1px solid var(--vw-green);background:#fff;font-size:14px}
+.vwD .seg button:last-child{border-right:none}
+.vwD .seg button.on{background:var(--vw-green);color:#fff}
+.vwD .step{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--vw-line2);padding:4px}
+.vwD .step button{width:48px;height:48px;border:none;background:var(--vw-sand);font-size:22px}
+.vwD .tagx{min-height:32px;padding:0 10px;border:1px solid var(--vw-green);background:var(--vw-green-soft);color:var(--vw-green) !important;border-radius:16px;font-size:12px}
+@media (prefers-reduced-motion:reduce){.vwD .sheet{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site">
+    <span class="logo-fallback">Codedesign</span>
+  </header>
+
+  <div class="hero">
+    <h1>Help every buyer find their project in two taps</h1>
+    <p class="lead">The Vilamoura World hub lists 11 projects. On mobile, most visitors don't scroll and many open the first card. Here are four ways to filter by property type and bedrooms.</p>
+    <div class="cta">
+      <a class="btn" href="#concept-a">Try the Prototypes</a>
+    </div>
+    <div class="problem">
+      <div class="glass"><h3>Key facts are buried</h3><p>Type and size sit inside long paragraphs, so projects are hard to compare.</p></div>
+      <div class="glass"><h3>The first card gets the clicks</h3><p>Visitors who don't scroll never see the projects further down.</p></div>
+      <div class="glass"><h3>The wizard felt heavy</h3><p>A multi-step quiz asks for effort before showing any projects.</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="concept" id="concept-a">
+  <div class="wrap concept-grid">
+    <div class="copy">
+      <span class="tag rec">Concept A · Recommended</span>
+      <h2>Sentence filter</h2>
+      <p class="lead">"I'm looking for <em>a home to live in</em> with <em>3+ bedrooms</em>." Tap an underlined phrase to change it. The list updates straight away.</p>
+      <ul>
+        <li>Fits the editorial tone of the site.</li>
+        <li>Projects stay on screen while filtering.</li>
+        <li>If nothing matches, it shows the closest projects.</li>
+        <li>Cards show type, bedrooms and one key selling point.</li>
+      </ul>
+    </div>
+    <div class="phone-col"><div class="phone" id="protoA"></div></div>
+  </div>
+</section>
+
+<section class="concept" id="concept-b">
+  <div class="wrap concept-grid flip">
+    <div class="copy">
+      <span class="tag">Concept B</span>
+      <h2>Intent tiles and bedroom bar</h2>
+      <p class="lead">Three tiles (Live here, Invest, Touristic) and a bedroom bar that stays in view while scrolling.</p>
+      <ul>
+        <li>Closest to the current page, so the simplest to build.</li>
+        <li>Each tile shows how many projects match.</li>
+        <li>Cards add bedrooms, a highlight and a starting price.</li>
+      </ul>
+    </div>
+    <div class="phone-col"><div class="phone" id="protoB"></div></div>
+  </div>
+</section>
+
+<section class="concept" id="concept-c">
+  <div class="wrap concept-grid">
+    <div class="copy">
+      <span class="tag">Concept C</span>
+      <h2>Category rows</h2>
+      <p class="lead">Projects grouped into rows by property type, swiped sideways. There is no filter to open.</p>
+      <ul>
+        <li>The first screen shows several projects per category.</li>
+        <li>The bedroom bar filters all rows.</li>
+        <li>"See all" opens the full category.</li>
+      </ul>
+    </div>
+    <div class="phone-col"><div class="phone" id="protoC"></div></div>
+  </div>
+</section>
+
+<section class="concept" id="concept-d">
+  <div class="wrap concept-grid flip">
+    <div class="copy">
+      <span class="tag">Concept D</span>
+      <h2>Filter button and bottom sheet</h2>
+      <p class="lead">A button at the bottom of the screen opens a panel with property type, bedrooms and a result count. Common on property portals.</p>
+      <ul>
+        <li>Easy to reach with one hand.</li>
+        <li>Shows matching projects before applying.</li>
+        <li>Active filters show as removable tags.</li>
+      </ul>
+    </div>
+    <div class="phone-col"><div class="phone" id="protoD"></div></div>
+  </div>
+</section>
+
+<section class="plan" id="plan">
+  <div class="wrap">
+    <h2>How We Would Test It</h2>
+    <p class="sub">A mobile-only A/B/C test on the live hub.</p>
+    <div class="steps">
+      <div class="glass"><div class="n">01 · Variants</div><h3>A vs C vs today</h3><p>Sentence filter, category rows, and the current page as control.</p></div>
+      <div class="glass"><div class="n">02 · Measures</div><h3>Metrics</h3><p>Clicks to project pages, projects viewed per visitor, and scroll depth.</p></div>
+      <div class="glass"><div class="n">03 · Inputs</div><h3>Needed from From:</h3><p>Property type per project, bedroom ranges and starting prices.</p></div>
+    </div>
+    <p class="note" style="text-align:center">Prototypes use sample data.</p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2>Next Step</h2>
+    <p>Choose the concepts to test and we'll prepare the build brief.</p>
+    <a class="btn" href="mailto:anatolionobre@gmail.com?subject=Vilamoura%20hub%20filter%20concepts">Book a Review Call</a>
+    <p class="note">Or write to <strong style="color:var(--t1);user-select:all">anatolionobre@gmail.com</strong></p>
+  </div>
+</section>
+
+<footer><div class="wrap">© Codedesign. All Rights Reserved. Prepared for From: · Vilamoura World.</div></footer>
+
+<script>
+(function(){
+  var P = [
+    {name:'The Uncommon',kind:'Apartments',types:['residential','investment'],min:1,max:3,usp:'Beachfront · concierge',c:'#3A3F4A'},
+    {name:'Springs',kind:'Villas',types:['residential'],min:3,max:4,usp:'Beside the Els Club',c:'#8C8A84'},
+    {name:'Botanica',kind:'Apartments',types:['residential'],min:1,max:3,usp:'Indoor pool · gardens',c:'#1F6E68'},
+    {name:'Natura Village',kind:'Villas',types:['residential'],min:3,max:4,usp:'Pool · garden · garage',c:'#2F5D57'},
+    {name:'Terracota',kind:'Apartments',types:['residential'],min:1,max:3,usp:'Urban beach',c:'#A84E2B'},
+    {name:'Nobilus',kind:'Apartments',types:['residential'],min:2,max:3,usp:'Sustainable build',c:'#5A2E1A'},
+    {name:'Zestia',kind:'Touristic',types:['touristic','investment'],min:0,max:2,usp:'4★ hotel · near marina',c:'#B4521C'},
+    {name:'Rivus',kind:'Apartments',types:['residential'],min:1,max:3,usp:'Smart home',c:'#12457A'},
+    {name:'Mouragolfe',kind:'Plots',types:['investment'],min:null,max:null,usp:'Dom Pedro Old Course',c:'#6B6F42'},
+    {name:'Twenty One',kind:'Plots',types:['investment'],min:null,max:null,usp:'Build your own',c:'#2E4A3C'},
+    {name:'Els Club Estates',kind:'Plots',types:['investment'],min:null,max:null,usp:'Golf-front plots',c:'#26285E'}
+  ];
+  var TN={residential:'Residential',investment:'Investment',touristic:'Touristic'};
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function typeOk(p,t){return !t||t==='all'||p.types.indexOf(t)>-1;}
+  function roomOk(p,r){return !r||(p.max!==null&&p.max>=r);}
+  function spec(p){return p.min===null?'Plots':(p.min===0?'Studio':'T'+p.min)+'–T'+p.max;}
+  function plural(n){return n+(n===1?' project':' projects');}
+  var CHEV='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F4E4A" stroke-width="1.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
+  function mount(el, initial, render, handlers){
+    var state=initial;
+    function draw(){ el.innerHTML=render(state); }
+    el.addEventListener('click',function(e){
+      var lk=e.target.closest('a[href="#"]'); if(lk&&el.contains(lk)){e.preventDefault();return;}
+      var b=e.target.closest('[data-a]'); if(!b||!el.contains(b))return;
+      e.preventDefault();
+      var h=handlers[b.getAttribute('data-a')]; if(!h)return;
+      var next=h(state,b.getAttribute('data-v'));
+      if(next){state=Object.assign({},state,next);draw();}
+    });
+    draw();
+  }
+
+  /* ---------- A: Sentence filter ---------- */
+  var typeTok={all:'any home',residential:'a home to live in',investment:'an investment',touristic:'a holiday home'};
+  var roomTok={0:'any bedrooms',1:'1+ bedroom',2:'2+ bedrooms',3:'3+ bedrooms',4:'4+ bedrooms'};
+  mount(document.getElementById('protoA'),{type:'all',rooms:0,open:null},function(s){
+    var list=P.filter(function(p){return typeOk(p,s.type)&&roomOk(p,s.rooms);});
+    var empty=!list.length; if(empty)list=P.filter(function(p){return typeOk(p,s.type);}).slice(0,3);
+    var opts='';
+    if(s.open==='type')opts='<div class="row" style="margin-top:14px">'+[['residential','To live in'],['investment','Investment'],['touristic','Touristic'],['all','Show all']].map(function(o){return '<button class="pill'+(s.type===o[0]?' on':'')+'" aria-pressed="'+(s.type===o[0])+'" data-a="type" data-v="'+o[0]+'">'+o[1]+'</button>';}).join('')+'</div>';
+    if(s.open==='rooms')opts='<div class="row" style="margin-top:14px">'+[[0,'Any'],[1,'1+'],[2,'2+'],[3,'3+'],[4,'4+']].map(function(o){return '<button class="pill'+(s.rooms===o[0]?' on':'')+'" aria-pressed="'+(s.rooms===o[0])+'" data-a="rooms" data-v="'+o[0]+'">'+o[1]+'</button>';}).join('')+'</div>';
+    var filtered=s.type!=='all'||s.rooms>0;
+    return '<div class="vw vwA">'+
+      '<div style="padding:22px 20px 14px;background:var(--vw-sand)">'+
+        '<p class="kick" style="margin:0 0 8px">Pick your place</p>'+
+        '<p class="serif" style="margin:0;font-size:23px;line-height:1.5">I\'m looking for '+
+          '<button class="token'+(s.open==='type'?' open':'')+'" aria-expanded="'+(s.open==='type')+'" data-a="openType">'+typeTok[s.type]+' ▾</button> with '+
+          '<button class="token'+(s.open==='rooms'?' open':'')+'" aria-expanded="'+(s.open==='rooms')+'" data-a="openRooms">'+roomTok[s.rooms]+' ▾</button></p>'+
+        opts+
+        '<p class="count" style="margin:14px 0 0;font-size:13px;color:var(--vw-sub)" aria-live="polite"><strong>'+(empty?'No exact match':plural(list.length))+'</strong> · '+(empty?'showing closest':'tap the underlined words')+'</p>'+
+      '</div>'+
+      '<div class="scroll" style="padding:12px 16px 24px;display:flex;flex-direction:column;gap:10px">'+
+        list.map(function(p,i){return '<a class="card" href="#" style="min-height:92px;flex-shrink:0">'+
+          '<div class="tile" style="width:84px;flex-shrink:0;background:'+p.c+';align-items:center;justify-content:center;font-size:12px;text-align:center;line-height:1.2">'+esc(p.name)+'</div>'+
+          '<div style="flex:1;padding:10px 8px 10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0">'+
+            '<div style="display:flex;gap:6px;align-items:center"><span class="kick" style="font-size:10px">'+esc(p.kind)+'</span>'+((!empty&&i===0&&filtered)?'<span class="badge">Best match</span>':'')+'</div>'+
+            '<span class="serif" style="font-size:17px">'+esc(p.name)+'</span>'+
+            '<span style="font-size:13px;color:var(--vw-sub)">'+spec(p)+'</span>'+
+            '<span style="font-size:12px;color:var(--vw-mute)">'+esc(p.usp)+'</span></div>'+
+          '<div style="display:flex;align-items:center;padding-right:10px">'+CHEV+'</div></a>';}).join('')+
+      '</div></div>';
+  },{
+    openType:function(s){return {open:s.open==='type'?null:'type'};},
+    openRooms:function(s){return {open:s.open==='rooms'?null:'rooms'};},
+    type:function(s,v){return {type:v,open:'rooms'};},
+    rooms:function(s,v){return {rooms:+v,open:null};}
+  });
+
+  /* ---------- B: Intent tiles ---------- */
+  var ICON={
+    residential:'<path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/>',
+    investment:'<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+    touristic:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>'
+  };
+  mount(document.getElementById('protoB'),{type:null,rooms:0},function(s){
+    var list=P.filter(function(p){return typeOk(p,s.type)&&roomOk(p,s.rooms);});
+    var lbl={residential:'Live here',investment:'Invest',touristic:'Touristic'};
+    var tn={residential:'to live in',investment:'for investment',touristic:'touristic'};
+    return '<div class="vw vwB">'+
+      '<div style="padding:22px 20px 14px"><h3 class="h1">Pick your place</h3><p style="margin:6px 0 0;color:var(--vw-sub)">What brings you to Vilamoura?</p></div>'+
+      '<div class="tiles">'+['residential','investment','touristic'].map(function(k){
+        var n=P.filter(function(p){return typeOk(p,k)&&roomOk(p,s.rooms);}).length,on=s.type===k;
+        return '<button class="it'+(on?' on':'')+'" aria-pressed="'+on+'" data-a="type" data-v="'+k+'"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">'+ICON[k]+'</svg><span><span style="display:block;font-size:15px;font-weight:600">'+lbl[k]+'</span><span style="font-size:12px">'+plural(n)+'</span></span></button>';}).join('')+'</div>'+
+      '<div class="bar"><div style="display:flex;justify-content:space-between;align-items:center"><span class="kick">Bedrooms</span><button class="link" data-a="reset">Reset all</button></div>'+
+        '<div class="hrow">'+[[0,'Any'],[1,'1+'],[2,'2+'],[3,'3+'],[4,'4+']].map(function(o){return '<button class="pill sm'+(s.rooms===o[0]?' on':'')+'" aria-pressed="'+(s.rooms===o[0])+'" data-a="rooms" data-v="'+o[0]+'">'+o[1]+'</button>';}).join('')+'</div></div>'+
+      '<div class="scroll" style="padding:14px 16px 24px;display:flex;flex-direction:column;gap:14px">'+
+        '<p class="count" style="margin:0;font-size:13px;color:var(--vw-sub)" aria-live="polite"><strong>'+plural(list.length)+'</strong> '+(s.type?tn[s.type]:'in Vilamoura')+(s.rooms?' · '+s.rooms+'+ bedrooms':'')+'</p>'+
+        (list.length?'':'<p class="empty">No project fits both choices. Try fewer bedrooms.</p>')+
+        list.map(function(p){return '<div style="border:1px solid var(--vw-line);flex-shrink:0">'+
+          '<div class="tile" style="height:130px;background:'+p.c+';justify-content:space-between;font-size:21px"><span>'+esc(p.name)+'</span><span style="font-family:\'DM Sans\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0;text-transform:none;background:#fff;color:#1E1E1E;padding:4px 8px">'+esc(p.kind)+'</span></div>'+
+          '<div class="spec"><div><small>Bedrooms</small><b style="font-weight:500">'+spec(p)+'</b></div><div><small>Highlight</small><span style="font-size:13px">'+esc(p.usp.split(' · ')[0])+'</span></div><div><small>From</small><b style="font-weight:500">€ TBC</b></div></div>'+
+          '<a href="#" style="display:flex;justify-content:space-between;align-items:center;min-height:46px;padding:0 12px;border-top:1px solid var(--vw-line);text-decoration:none;color:var(--vw-green);font-size:13px;letter-spacing:1px;text-transform:uppercase">Meet '+esc(p.name)+' <span aria-hidden="true">›</span></a></div>';}).join('')+
+      '</div></div>';
+  },{
+    type:function(s,v){return {type:s.type===v?null:v};},
+    rooms:function(s,v){return {rooms:+v};},
+    reset:function(){return {type:null,rooms:0};}
+  });
+
+  /* ---------- C: Category rows ---------- */
+  var CATS=[['residential','Homes to live in'],['investment','Investment'],['touristic','Touristic']];
+  function cCard(p){return '<a class="card" href="#"><div class="tile" style="height:100px;background:'+p.c+';font-size:14px">'+esc(p.name)+'</div><div style="padding:8px 10px 10px;display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;font-weight:600">'+esc(p.kind)+' · '+spec(p)+'</span><span style="font-size:12px;color:var(--vw-mute)">'+esc(p.usp.split(' · ')[0])+'</span></div></a>';}
+  mount(document.getElementById('protoC'),{rooms:0,open:null},function(s){
+    var title=s.open?CATS.filter(function(c){return c[0]===s.open;})[0][1]:'Pick your place';
+    var body;
+    if(!s.open){
+      body=CATS.map(function(c){
+        var items=P.filter(function(p){return typeOk(p,c[0])&&roomOk(p,s.rooms);});
+        return '<div style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between;align-items:center;padding:0 20px"><h4 class="serif" style="margin:0;font-size:19px">'+c[1]+' <span style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:var(--vw-mute)">· '+items.length+'</span></h4><button class="link" data-a="open" data-v="'+c[0]+'">See all</button></div>'+
+          (items.length?'<div class="rowcards">'+items.map(cCard).join('')+'</div>':'<p class="empty" style="padding:0 20px">Nothing with this many bedrooms here yet.</p>')+'</div>';
+      }).join('');
+    } else {
+      var full=P.filter(function(p){return typeOk(p,s.open)&&roomOk(p,s.rooms);});
+      body=full.length?'<div class="grid2">'+full.map(cCard).join('')+'</div>':'<p class="empty" style="padding:0 20px">Nothing with this many bedrooms here yet.</p>';
+    }
+    return '<div class="vw vwC">'+
+      '<div style="padding:22px 20px 12px;border-bottom:1px solid var(--vw-line);display:flex;flex-direction:column;gap:10px">'+
+        (s.open?'<button class="link" style="align-self:flex-start;text-decoration:none" data-a="back">‹ All categories</button>':'')+
+        '<h3 class="h1">'+title+'</h3>'+
+        '<div class="hrow" style="align-items:center"><span style="font-size:12px;color:var(--vw-mute);flex-shrink:0">Bedrooms</span>'+[[0,'Any'],[1,'1+'],[2,'2+'],[3,'3+'],[4,'4+']].map(function(o){return '<button class="pill sm'+(s.rooms===o[0]?' on':'')+'" aria-pressed="'+(s.rooms===o[0])+'" data-a="rooms" data-v="'+o[0]+'">'+o[1]+'</button>';}).join('')+'</div>'+
+      '</div>'+
+      '<div class="scroll" style="padding:18px 0 24px;display:flex;flex-direction:column;gap:22px">'+body+'</div></div>';
+  },{
+    rooms:function(s,v){return {rooms:+v};},
+    open:function(s,v){return {open:v};},
+    back:function(){return {open:null};}
+  });
+
+  /* ---------- D: Bottom sheet ---------- */
+  mount(document.getElementById('protoD'),{open:false,type:null,rooms:0,dType:null,dRooms:0},function(s){
+    function match(t,r){return P.filter(function(p){return typeOk(p,t)&&roomOk(p,r);});}
+    var list=match(s.type,s.rooms),draft=match(s.dType,s.dRooms),n=draft.length;
+    var tags=[];
+    if(s.type)tags.push('<button class="tagx" data-a="rmType" aria-label="Remove filter '+TN[s.type]+'">'+TN[s.type]+' ×</button>');
+    if(s.rooms)tags.push('<button class="tagx" data-a="rmRooms" aria-label="Remove bedrooms filter">'+s.rooms+'+ bed ×</button>');
+    var html='<div class="vw vwD">'+
+      '<div style="padding:22px 20px 12px;border-bottom:1px solid var(--vw-line);display:flex;flex-direction:column;gap:8px"><h3 class="h1">Pick your place</h3>'+
+        '<div class="row" style="align-items:center"><span class="count" style="font-size:13px" aria-live="polite"><strong>'+plural(list.length)+'</strong></span>'+tags.join('')+'</div></div>'+
+      '<div class="scroll" style="padding:14px 16px 100px;display:flex;flex-direction:column;gap:12px">'+
+        list.map(function(p){return '<a class="card" href="#" style="flex-direction:column;flex-shrink:0"><div class="tile" style="height:120px;background:'+p.c+';font-size:21px">'+esc(p.name)+'</div><div style="padding:10px 12px;display:flex;justify-content:space-between;gap:8px;font-size:13px"><span><b>'+esc(p.kind)+'</b> · '+spec(p)+'</span><span style="color:var(--vw-mute)">'+esc(p.usp.split(' · ')[0])+'</span></div></a>';}).join('')+
+      '</div>';
+    if(!s.open){
+      html+='<button class="fab" data-a="openSheet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>'+(tags.length?'Filters · '+tags.length:'Find your place')+'</button>';
+    } else {
+      var prev=draft.slice(0,4).map(function(p){return '<span style="font-size:12px;background:var(--vw-sand);padding:4px 8px">'+esc(p.name)+'</span>';}).join('')+(n>4?'<span style="font-size:12px;background:var(--vw-sand);padding:4px 8px">+'+(n-4)+' more</span>':'');
+      html+='<button class="scrim" data-a="close" aria-label="Close filters"></button>'+
+        '<div class="sheet" role="dialog" aria-label="Find your place">'+
+          '<div style="align-self:center;width:40px;height:4px;border-radius:2px;background:var(--vw-line2)"></div>'+
+          '<div style="display:flex;justify-content:space-between;align-items:center"><h4 class="serif" style="margin:0;font-size:22px">Find your place</h4><button data-a="close" aria-label="Close" style="width:44px;height:44px;border:none;background:transparent;font-size:22px">×</button></div>'+
+          '<div style="display:flex;flex-direction:column;gap:8px"><span class="kick">Property type</span><div class="seg">'+['residential','investment','touristic'].map(function(k){return '<button class="'+(s.dType===k?'on':'')+'" aria-pressed="'+(s.dType===k)+'" data-a="dType" data-v="'+k+'">'+TN[k]+'</button>';}).join('')+'</div></div>'+
+          '<div style="display:flex;flex-direction:column;gap:8px"><span class="kick">Bedrooms (minimum)</span><div class="step"><button data-a="dec" aria-label="Fewer bedrooms">−</button><span style="font-size:17px;font-weight:600">'+(s.dRooms?s.dRooms+'+ bedrooms':'Any')+'</span><button data-a="inc" aria-label="More bedrooms">+</button></div></div>'+
+          '<div class="row" style="align-items:center;gap:6px;min-height:28px"><span style="font-size:12px;color:var(--vw-mute)">Matches:</span>'+(n?prev:'<span style="font-size:12px">none yet</span>')+'</div>'+
+          '<div style="display:flex;gap:10px"><button data-a="clear" style="min-height:52px;padding:0 18px;border:1px solid var(--vw-line2);background:#fff;font-size:14px">Clear</button>'+
+          '<button data-a="apply" '+(n?'':'disabled ')+'style="flex:1;min-height:52px;border:none;background:'+(n?'var(--vw-green)':'var(--vw-line2)')+';color:'+(n?'#fff':'#1E1E1E')+';font-size:15px;font-weight:600">'+(n?'Show '+plural(n):'No matches — adjust filters')+'</button></div>'+
+        '</div>';
+    }
+    return html+'</div>';
+  },{
+    openSheet:function(s){return {open:true,dType:s.type,dRooms:s.rooms};},
+    close:function(){return {open:false};},
+    dType:function(s,v){return {dType:s.dType===v?null:v};},
+    dec:function(s){return {dRooms:Math.max(0,s.dRooms-1)};},
+    inc:function(s){return {dRooms:Math.min(4,s.dRooms+1)};},
+    clear:function(){return {dType:null,dRooms:0};},
+    apply:function(s){var n=P.filter(function(p){return typeOk(p,s.dType)&&roomOk(p,s.dRooms);}).length;return n?{open:false,type:s.dType,rooms:s.dRooms}:null;},
+    rmType:function(){return {type:null,dType:null};},
+    rmRooms:function(){return {rooms:0,dRooms:0};}
+  });
+})();
+</script>
+</body>
+</html>
